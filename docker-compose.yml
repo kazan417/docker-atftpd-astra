@@ -1,0 +1,13 @@
+version: '2.4'
+
+services:
+  atftpd:
+    container_name: atftpd
+    build:
+      context: .
+    restart: unless-stopped
+    volumes:
+      - ./disks:/data/disks
+      - ./custom.cfg:/data/grub/custom.cfg
+    ports:
+      - 69:69/udp
