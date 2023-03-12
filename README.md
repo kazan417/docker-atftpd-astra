@@ -21,6 +21,18 @@ To use *docker-atftpd*, follow these steps:
        docker run -p 69:69/udp \
          docker.io/aguslr/atftpd:latest
 
+2. Configure your *PXE* server to connect to your *TFTP* server's IP address
+   (e.g. `192.168.1.10`). For example, this would be the [configuration for
+   *dnsmasq*][14]:
+
+       dhcp-match=set:bios,option:client-arch,0
+       dhcp-match=set:efi32,option:client-arch,6
+       dhcp-match=set:efi64,option:client-arch,7
+       dhcp-match=set:efi64,option:client-arch,9
+       dhcp-boot=tag:bios,grub/i386-pc/core.0,tfp.lan,192.168.1.10
+       dhcp-boot=tag:efi32,grub/i386-efi/core.efi,tfp.lan,192.168.1.10
+       dhcp-boot=tag:efi64,grub/x86_64-efi/core.efi,tfp.lan,192.168.1.10
+
 
 #### Custom GRUB entries
 
@@ -86,3 +98,4 @@ References
 [11]: https://github.com/csclabs/atftpd
 [12]: https://linuxguideandhints.com/el/pxeboot.html
 [13]: https://github.com/netbootxyz/netboot.xyz
+[14]: https://wiki.archlinux.org/title/dnsmasq#PXE_server
