@@ -8,7 +8,7 @@ RUN \
   dpkg --add-architecture i386 && \
   apt-get update && \
   env DEBIAN_FRONTEND=noninteractive \
-  apt-get install -y --no-install-recommends atftpd \
+  apt-get install -y --no-install-recommends atftpd curl \
   syslinux-common grub-theme-breeze \
   grub-pc-bin grub-efi-ia32-bin grub-efi-amd64-bin grub-efi-arm64-bin \
   -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
@@ -25,6 +25,9 @@ COPY grub.cfg /data/grub/grub.cfg
 EXPOSE 69/udp
 
 VOLUME /data/disks
+
+HEALTHCHECK --interval=1m --timeout=3s \
+  CMD timeout 2 curl -sfo /dev/null 'tftp://127.0.0.1/grub/grub.cfg'
 
 ENTRYPOINT ["/usr/sbin/atftpd"]
 CMD ["--daemon", "--no-fork", "--user", "nobody.nogroup", "--logfile", "/dev/stdout", "--port", "69", "/data"]
