@@ -16,7 +16,6 @@ RUN \
 
 RUN \
   grub-mknetdir --net-directory=/data --subdir=grub --themes=breeze && \
-  mkdir -p /data/grub/grub.d && \
   chown nobody:nogroup /data && \
   cp /usr/lib/syslinux/memdisk /data/grub
 
