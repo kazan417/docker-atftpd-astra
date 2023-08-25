@@ -1,7 +1,7 @@
 [aguslr/docker-atftpd][1]
 =========================
 
-[![publish-docker-image](https://github.com/aguslr/docker-atftpd/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/aguslr/docker-atftpd/actions/workflows/docker-publish.yml) [![docker-pulls](https://img.shields.io/docker/pulls/aguslr/atftpd)](https://hub.docker.com/r/aguslr/atftpd) [![image-size](https://img.shields.io/docker/image-size/aguslr/atftpd/latest)](https://hub.docker.com/r/aguslr/atftpd)
+[![docker-pulls](https://img.shields.io/docker/pulls/aguslr/atftpd)](https://hub.docker.com/r/aguslr/atftpd) [![image-size](https://img.shields.io/docker/image-size/aguslr/atftpd/latest)](https://hub.docker.com/r/aguslr/atftpd)
 
 
 This *Docker* image sets up *aftpd* inside a docker container.
