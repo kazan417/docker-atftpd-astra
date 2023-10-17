@@ -11,7 +11,3 @@ services:
       - ./custom.cfg:/data/grub/custom.cfg
     ports:
       - 69:69/udp
-    healthcheck:
-      test: timeout 2 curl -sfo /dev/null 'tftp://127.0.0.1/grub/grub.cfg'
-      interval: 1m
-      timeout: 3s
