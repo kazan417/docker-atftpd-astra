@@ -56,8 +56,8 @@ We would have to copy the necessary image files into the `./disks` directory so
 we can go ahead and mount the volumes as follows:
 
     docker run -p 69:69/udp \
-      -v "${PWD}"/disks:/data/disks \
-      -v "${PWD}"/custom.cfg:/data/grub/custom.cfg \
+      -v ./disks:/data/disks \
+      -v ./custom.cfg:/data/grub/custom.cfg \
       docker.io/aguslr/atftpd:latest
 
 
