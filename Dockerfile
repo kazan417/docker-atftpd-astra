@@ -19,7 +19,7 @@ RUN \
   chown nobody:nogroup /data && \
   cp /usr/lib/syslinux/memdisk /data/grub
 
-COPY grub.cfg /data/grub/grub.cfg
+COPY rootfs/ /
 
 EXPOSE 69/udp
 
