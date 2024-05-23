@@ -2,22 +2,25 @@ ARG BASE_IMAGE=library/debian:stable-slim
 
 FROM docker.io/${BASE_IMAGE}
 
-RUN \
-  dpkg --add-architecture amd64 && \
-  dpkg --add-architecture arm64 && \
-  dpkg --add-architecture i386 && \
-  apt-get update && \
-  env DEBIAN_FRONTEND=noninteractive \
-  apt-get install -y --no-install-recommends atftpd curl \
-  syslinux-common grub-theme-breeze \
-  grub-pc-bin grub-efi-ia32-bin grub-efi-amd64-bin grub-efi-arm64-bin \
-  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /var/lib/apt/lists/*
+RUN <<-EOT bash
+	set -eu
 
-RUN \
-  grub-mknetdir --net-directory=/data --subdir=grub --themes=breeze && \
-  chown nobody:nogroup /data && \
-  cp /usr/lib/syslinux/memdisk /data/grub
+	dpkg --add-architecture amd64
+	dpkg --add-architecture arm64
+	dpkg --add-architecture i386
+
+	apt-get update
+	env DEBIAN_FRONTEND=noninteractive \
+		apt-get install -y --no-install-recommends atftpd curl \
+		syslinux-common grub-theme-breeze \
+		grub-pc-bin grub-efi-ia32-bin grub-efi-amd64-bin grub-efi-arm64-bin \
+		-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+	apt-get clean && rm -rf /var/lib/apt/lists/* /var/lib/apt/lists/*
+
+	grub-mknetdir --net-directory=/data --subdir=grub --themes=breeze && \
+		chown nobody:nogroup /data
+	cp /usr/lib/syslinux/memdisk /data/grub
+EOT
 
 COPY rootfs/ /
 
