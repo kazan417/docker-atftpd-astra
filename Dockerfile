@@ -1,14 +1,8 @@
-ARG BASE_IMAGE=library/debian:stable-slim
 
-FROM docker.io/${BASE_IMAGE}
+FROM registry.astralinux.ru/astra/ubi18
 
 RUN <<-EOT sh
 	set -eu
-
-	dpkg --add-architecture amd64
-	dpkg --add-architecture arm64
-	dpkg --add-architecture i386
-
 	apt-get update
 	env DEBIAN_FRONTEND=noninteractive \
 		apt-get install -y --no-install-recommends atftpd curl \
