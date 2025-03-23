@@ -1,20 +1,18 @@
 
 FROM registry.astralinux.ru/astra/ubi18
 
-RUN <<-EOT sh
-	set -eu
-	apt-get update
+RUN  set -eu; \
+	apt-get update; \
 	env DEBIAN_FRONTEND=noninteractive \
 		apt-get install -y --no-install-recommends atftpd curl \
 		syslinux-common  \
 		grub-pc-bin grub-efi-ia32-bin grub-efi-amd64-bin  \
-		-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-	apt-get clean && rm -rf /var/lib/apt/lists/* /var/lib/apt/lists/*
+		-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"; \
+	apt-get clean && rm -rf /var/lib/apt/lists/* /var/lib/apt/lists/*;\
 
 	grub-mknetdir --net-directory=/data --subdir=grub --themes=breeze && \
-		chown nobody:nogroup /data
+		chown nobody:nogroup /data; \
 	cp /usr/lib/syslinux/memdisk /data/grub
-EOT
 
 COPY rootfs/ /
 
